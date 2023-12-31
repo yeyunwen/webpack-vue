@@ -19,7 +19,11 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["vue-style-loader", "css-loader"],
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/i,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.vue$/i,
@@ -31,6 +35,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public/index.html"),
     }),
-    new VueLoaderPlugin(),
+    new VueLoaderPlugin(), // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
   ],
 };

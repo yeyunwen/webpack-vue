@@ -1,4 +1,4 @@
-import "./style/1.css";
+import "./style/index.scss";
 import Vue from "vue";
 import App from "./App.vue";
 
