@@ -26,6 +26,12 @@ module.exports = {
   output: {
     filename: "[name].[hash:8].js", // 打包后的文件名 [name] 为入口文件名
     path: path.resolve(__dirname, "dist"),
+    chunkFilename: (pathData) => {
+      return pathData.chunk.name === "main"
+        ? "js/[name].js"
+        : "js/[name]/[name].js";
+    },
+    assetModuleFilename: "img/[hash:8][ext][query]",
     clean: true, // 清除上次打包的文件
   },
   devServer: {
@@ -40,6 +46,19 @@ module.exports = {
       {
         test: /\.scss$/i,
         use: getStyleLoaders("sass-loader"),
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: "asset", // asset type 会根据 maxSize 自动选择 "asset/resource" | "asset/inline"
+        parser: {
+          dataUrlCondition: {
+            maxSize: 4 * 1024, // 4kb,
+          },
+          // 也可以使用函数
+          // dataUrlCondition: (source, { filename, module }) => {
+          //   console.log("module", module);
+          // },
+        },
       },
       {
         test: /\.vue$/i,
