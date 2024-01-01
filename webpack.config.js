@@ -40,6 +40,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/i,
+        include: path.resolve(__dirname, "src"),
+        loader: "babel-loader",
+      },
+      {
         test: /\.css$/i,
         use: getStyleLoaders(),
       },

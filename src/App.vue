@@ -13,9 +13,17 @@ import { ref } from "vue";
 import Test from "./components/Test.vue";
 import logoImg from "./assets/logo.png";
 
+let count = ref(0);
+
 console.log("logoImg", logoImg);
 
-let count = ref(0);
+const testFn = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("test");
+    }, 500);
+  });
+};
 </script>
 
 <style lang="scss" scoped>
