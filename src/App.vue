@@ -16,14 +16,6 @@ import logoImg from "./assets/logo.png";
 let count = ref(0);
 
 console.log("logoImg", logoImg);
-
-const testFn = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("test");
-    }, 500);
-  });
-};
 </script>
 
 <style lang="scss" scoped>
