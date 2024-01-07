@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "dev": "webpack serve --open",
     "build": "webpack --config webpack.config.js",
-    "live-server": "live-server --open=/dist/index.html",
-    "start": "webpack serve --open"
+    "live-server": "live-server --open=/dist/index.html"
   },
   "keywords": [],
   "author": "",
@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "core-js": "^3.35.0",
-    "vue": "2.7"
+    "vue": "~2.7.16",
+    "vue-router": "^3.6.5"
   },
   "browserslist": [
     "> 1%",
