@@ -9,7 +9,12 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ["plugin:vue/vue3-recommended", "eslint:recommended", "plugin:prettier/recommended", "prettier"],
+  extends: [
+    "plugin:vue/vue3-recommended",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "prettier",
+  ],
   plugin: ["vue"],
   rules: {
     "vue/multi-word-component-names": "off",
