@@ -35,6 +35,11 @@ module.exports = {
     assetModuleFilename: "img/[hash:8][ext][query]",
     clean: true, // 清除上次打包的文件
   },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
   devServer: {
     static: "./dist", // 静态文件目录
   },
@@ -82,7 +87,7 @@ module.exports = {
       cache: true,
       cacheLocation: path.resolve(
         __dirname,
-        "node_modules/.cache/.eslintcache"
+        "node_modules/.cache/.eslintcache",
       ),
     }),
     new VueLoaderPlugin(), // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
