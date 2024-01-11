@@ -21,27 +21,11 @@ const getStyleLoaders = (preProcessor) => {
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
-  mode: "development",
-  devtool: false,
   entry: "./src/main.js",
-  output: {
-    filename: "[name].[hash:8].js", // 打包后的文件名 [name] 为入口文件名
-    path: path.resolve(__dirname, "dist"),
-    chunkFilename: (pathData) => {
-      return pathData.chunk.name === "main"
-        ? "js/[name].js"
-        : "js/[name]/[name].js";
-    },
-    assetModuleFilename: "img/[hash:8][ext][query]",
-    clean: true, // 清除上次打包的文件
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
-  },
-  devServer: {
-    static: "./dist", // 静态文件目录
   },
   module: {
     rules: [
@@ -80,6 +64,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public/index.html"),
+      title: "Webpack 5.0 + Vue 2.7.x",
     }),
     new ESlintWebpackPlugin({
       context: path.resolve(__dirname, "src"),
