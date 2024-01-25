@@ -1,9 +1,10 @@
 const path = require("path");
 const { merge } = require("webpack-merge");
-const common = require("./webpack.common.js");
+const { commonConfig, getStyleLoaders } = require("./webpack.common.js");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = merge(common, {
+const prodConfig = merge(commonConfig, {
   mode: "production",
   devtool: "cheap-module-source-map",
   output: {
@@ -12,6 +13,18 @@ module.exports = merge(common, {
     chunkFilename: "js/[name].[chunkhash:8].js",
     assetModuleFilename: "img/[contenthash:8][ext][query]",
     clean: true, // 清除上次打包的文件
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: getStyleLoaders(MiniCssExtractPlugin.loader),
+      },
+      {
+        test: /\.scss$/i,
+        use: getStyleLoaders(MiniCssExtractPlugin.loader, "sass-loader"),
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin({
@@ -26,5 +39,12 @@ module.exports = merge(common, {
         },
       ],
     }),
+    new MiniCssExtractPlugin({
+      filename: "css/[name].[fullhash:8].css",
+    }),
   ],
 });
+
+// console.log("prodConfig", prodConfig);
+
+module.exports = prodConfig;

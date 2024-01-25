@@ -3,9 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESlintWebpackPlugin = require("eslint-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 
-const getStyleLoaders = (preProcessor) => {
+const getStyleLoaders = (extractCss, preProcessor) => {
   return [
-    "style-loader",
+    extractCss,
     "css-loader",
     {
       loader: "postcss-loader",
@@ -20,7 +20,7 @@ const getStyleLoaders = (preProcessor) => {
 };
 
 /** @type {import('webpack').Configuration} */
-module.exports = {
+const commonConfig = {
   entry: "./src/main.js",
   resolve: {
     alias: {
@@ -33,14 +33,6 @@ module.exports = {
         test: /\.js$/i,
         include: path.resolve(__dirname, "src"),
         loader: "babel-loader",
-      },
-      {
-        test: /\.css$/i,
-        use: getStyleLoaders(),
-      },
-      {
-        test: /\.scss$/i,
-        use: getStyleLoaders("sass-loader"),
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
@@ -77,4 +69,9 @@ module.exports = {
     }),
     new VueLoaderPlugin(), // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。
   ],
+};
+
+module.exports = {
+  commonConfig,
+  getStyleLoaders,
 };

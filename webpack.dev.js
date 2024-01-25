@@ -1,7 +1,8 @@
 const { merge } = require("webpack-merge");
-const common = require("./webpack.common.js");
+const { commonConfig, getStyleLoaders } = require("./webpack.common.js");
 
-module.exports = merge(common, {
+/** @type {import('webpack').Configuration} */
+module.exports = merge(commonConfig, {
   mode: "development",
   devtool: "inline-source-map",
   devServer: {
@@ -13,4 +14,16 @@ module.exports = merge(common, {
     hot: true,
   },
   output: {},
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: getStyleLoaders("style-loader"),
+      },
+      {
+        test: /\.scss$/i,
+        use: getStyleLoaders("style-loader", "sass-loader"),
+      },
+    ],
+  },
 });
