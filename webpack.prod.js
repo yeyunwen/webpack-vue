@@ -3,6 +3,8 @@ const { merge } = require("webpack-merge");
 const { commonConfig, getStyleLoaders } = require("./webpack.common.js");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const prodConfig = merge(commonConfig, {
   mode: "production",
@@ -24,6 +26,15 @@ const prodConfig = merge(commonConfig, {
         test: /\.scss$/i,
         use: getStyleLoaders(MiniCssExtractPlugin.loader, "sass-loader"),
       },
+    ],
+  },
+  optimization: {
+    minimizer: [
+      // webpack5默认会用TerserPlugin压缩js，但是这里为了通过terser-webpack-plugin压缩css，所以需要出现配置
+      new TerserPlugin({
+        extractComments: false, //不将注释提取到单独的文件中
+      }),
+      new CssMinimizerPlugin(),
     ],
   },
   plugins: [
